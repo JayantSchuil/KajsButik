@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shopping Cart{% endblock %}
+{% block body %}
+<style>
+    th{
+        padding-right: 50px;
+    }
+</style>
+    <h1>Your Shopping Cart</h1>
+
+    <table>
+    <tr>
+        <th>naam </th>
+        <th>aantal </th>
+        <th>prijs per stuk </th>
+        <th>prijs </th>
+    </tr>
+    {% for row in cart %}
+
+    <tr>
+        <td> {{row[2].name}} </td>
+        {# <td> {{row }} <a href="{{ path('', {'id': array.id}) }}">addtocart</a> </td> #}
+        <td> {{row[1]}} </td>
+        <td> {{row[2].price}}</td>
+        <td>&euro;{{row[2].price * row[1]}},-</td>
+    {% endfor %}
+    </table>
+    <br>
+         Totaal prijs: {{ totaal }}
+    <br>
+    <br>
+    <a href="/checkout" class="btn btn-primary">Afrekenen</a>
+{% endblock %}

@@ -1,0 +1,51 @@
+
+{% extends 'base.html.twig' %}
+{% if is_granted("ROLE_USER") %}
+
+{% block title %}Product index{% endblock %}
+
+{% block body %}
+    <h1>Product index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Deskription</th>
+                <th>Pris</th>
+                <th>Navn</th>
+                <th>aktioner</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price }}Kr.</td>
+                <td>{{ product.name }}</td>
+                <td>
+                    <a href="{{ path('product_show', {'id': product.id}) }}">vis</a> |
+                    <a href="{{ path('product_edit', {'id': product.id}) }}">redigere</a> |
+                    <a href="{{ path('product_addtocart', {'id': product.id}) }}">tilføj til kurv</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Ingen poster fundet</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('product_new') }}">Lav ny</a>
+{% endblock %}
+{% else %}
+
+{% block title_nologin %}Ups{% endblock %}
+
+{% block body_nologin %}
+    <h1>Åh nej! :c</h1>
+    <p>Det ser ud til, at du ikke er logget ind. Hvis du vil se vores udvalg af produkter, log på</p>
+{% endblock %}
+{% endif %}
